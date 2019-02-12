@@ -1,19 +1,20 @@
 #ifndef __KXINPUT_H__
 #define __KXINPUT_H__
-
 #define KXINPUT_API __declspec(dllexport)
 
-class KXManager;
+#include "kxDebug.h"
 
-#if defined(_WIN32) 
+#if defined(_WIN32) // WINDOWS
 #define KXWIN
 #include "kxManagerWin.h"
-#endif
+typedef KXManagerWin Manager;
+#endif // ~WINDOWS
 
-static KXManager* _KXManager;
 
-typedef void(*KXLogMessageClbk)(const char* msg);
-static KXLogMessageClbk _KXLogger;
+
+static Manager* _KXManager;
+
+
 
 extern "C"
 {
@@ -69,11 +70,11 @@ extern "C"
 #pragma endregion 
 
 #pragma region Init/Cleanup
+
 	KXINPUT_API bool InitKXInput()
 	{
-#if defined(KXWIN)
-		_KXManager = new KXManagerWin(true);
-#endif
+		_KXManager = new Manager(true);
+		_KXManager->Init();
 		return true;
 	}
 
@@ -85,6 +86,7 @@ extern "C"
 	{
 		_KXLogger = a_clbk;
 	}
+
 #pragma endregion 
 
 

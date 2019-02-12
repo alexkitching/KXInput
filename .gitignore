@@ -19,3 +19,5 @@ ExportedObj/
 *.booproj
 *.svd
 *.pdb
+KXInputCaller/x64/
+x64/

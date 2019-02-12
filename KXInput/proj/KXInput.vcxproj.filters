@@ -13,6 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Windows">
+      <UniqueIdentifier>{36039153-389c-4d7b-ad88-2ce955299716}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Windows">
+      <UniqueIdentifier>{468ccd96-11d6-4dd7-a6ca-9d6eb5b89208}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Windows\DirectInput">
+      <UniqueIdentifier>{2281feb3-24d7-4594-8145-ac82d8752531}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Windows\XInput">
+      <UniqueIdentifier>{0bf5507c-78f8-4e86-97cf-91b40892009b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Windows\DirectInput">
+      <UniqueIdentifier>{d08fa00f-2476-4dd0-895d-993e31a59076}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -25,6 +40,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\kxManagerWin.h">
+      <Filter>Header Files\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\directInput.h">
+      <Filter>Header Files\Windows\DirectInput</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\kxDebug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\directInputDevice.h">
+      <Filter>Header Files\Windows\DirectInput</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\directInputPad.h">
+      <Filter>Header Files\Windows\DirectInput</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\kxMath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -33,7 +63,16 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\source\kxManagerWin.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\directInput.cpp">
+      <Filter>Source Files\Windows\DirectInput</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\directInputDevice.cpp">
+      <Filter>Source Files\Windows\DirectInput</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\directInputPad.cpp">
+      <Filter>Source Files\Windows\DirectInput</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

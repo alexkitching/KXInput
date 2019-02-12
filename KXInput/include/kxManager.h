@@ -2,20 +2,17 @@
 #define __KXMANAGER_H__
 
 
-class KXManager
+class  KXManager
 {
 public:
+	KXManager() = default;
 	~KXManager() = default;
 
+	virtual bool Init() = 0;
 	virtual void Update() = 0;
 
 protected:
-	KXManager() = default;
-	KXManager(bool a_bool) :
-	testBool(a_bool)
-	{
-		
-	}
+
 
 private:
 	bool testBool;
