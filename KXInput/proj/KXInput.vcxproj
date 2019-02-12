@@ -101,6 +101,16 @@
     <Link>
       <SubSystem>Windows</SubSystem>
     </Link>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>if not exist $(SolutionDir)lib\$(Platform)\$(Configuration)\ mkdir $(SolutionDir)lib\$(Platform)\$(Configuration)\
+
+copy /Y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)lib\$(Platform)\$(Configuration)\$(TargetName).dll"
+copy /Y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)KXInputDev\Assets\Plugins\$(TargetName).dll"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -114,6 +124,16 @@
     <Link>
       <SubSystem>Windows</SubSystem>
     </Link>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>if not exist $(SolutionDir)lib\$(Platform)\$(Configuration)\ mkdir $(SolutionDir)lib\$(Platform)\$(Configuration)\
+
+copy /Y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)lib\$(Platform)\$(Configuration)\$(TargetName).dll"
+copy /Y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)KXInputDev\Assets\Plugins\$(TargetName).dll"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -132,6 +152,16 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AssemblyDebug>true</AssemblyDebug>
     </Link>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>if not exist $(SolutionDir)lib\$(Platform)\$(Configuration)\ mkdir $(SolutionDir)lib\$(Platform)\$(Configuration)\
+
+copy /Y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)lib\$(Platform)\$(Configuration)\$(TargetName).dll"
+copy /Y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)KXInputDev\Assets\Plugins\$(TargetName).dll"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -150,6 +180,16 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AssemblyDebug>true</AssemblyDebug>
     </Link>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>if not exist $(SolutionDir)lib\$(Platform)\$(Configuration)\ mkdir $(SolutionDir)lib\$(Platform)\$(Configuration)\
+
+copy /Y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)lib\$(Platform)\$(Configuration)\$(TargetName).dll"
+copy /Y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)KXInputDev\Assets\Plugins\$(TargetName).dll"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
