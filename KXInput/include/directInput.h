@@ -101,6 +101,7 @@ class DirectInput
 {
 public:
 	static bool CreateDirectInput(DirectInput* a_inputPtr);
+	static void DestroyDirectInput();
 	~DirectInput();
 
 	void UpdateDevices();
@@ -109,12 +110,17 @@ private:
 	static BOOL CALLBACK DeviceEnumCallback(const DIDEVICEINSTANCE* a_instance,
 											VOID* a_context);
 	static BOOL CALLBACK EnumWindowsProc(_In_ HWND a_hwnd, _In_ LPARAM a_param);
+
+	void CreateGamePadDevice(GUID a_guid);
+
 	// Handle to Window
 	HWND m_hwnd;
 	// DirectInput Interface
 	IDirectInput8W* m_Input;
 
 	std::vector<DirectInputDevice*> m_devices;
+
+	
 };
 
 #endif

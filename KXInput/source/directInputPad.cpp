@@ -4,7 +4,9 @@
 #include <directInput.h>
 
 DirectInputPad::DirectInputPad(IDirectInput8W* a_input, HWND a_hWnd, const GUID& a_guid) :
-DirectInputDevice(a_input, a_hWnd, a_guid)
+DirectInputDevice(a_input, a_hWnd, a_guid),
+m_state({}),
+m_data({})
 {
 	m_device->SetDataFormat(&c_dfDIJoystick2);
 

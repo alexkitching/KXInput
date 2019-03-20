@@ -22,8 +22,9 @@ public:
 	void Update() override;
 	PadData GetPadData() const {return m_data;}
 
-private:
 	void EnumerateObject(const DIDEVICEOBJECTINSTANCE* a_instance) override;
+private:
+	
 
 	DIJOYSTATE2 m_state;
 	PadData m_data;

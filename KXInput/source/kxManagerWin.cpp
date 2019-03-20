@@ -1,13 +1,18 @@
 #include "kxManagerWin.h"
 #include "kxDebug.h"
 
-KXManagerWin::KXManagerWin(bool a_test): m_dInput(nullptr)
+KXManagerWin::KXManagerWin() : KXManager(), m_dInput(nullptr)
 {
+}
+
+KXManagerWin::~KXManagerWin()
+{
+	DirectInput::DestroyDirectInput();
 }
 
 bool KXManagerWin::Init()
 {
-	_KXLogger("KXManagerWin::Init - Creating Direct Input");
+	Debug::Log("KXManagerWin::Init - Creating Direct Input");
 	DirectInput::CreateDirectInput(m_dInput);
 	return true;
 }
@@ -15,6 +20,14 @@ bool KXManagerWin::Init()
 void KXManagerWin::Update()
 {
 	// Update Devices Here
-	m_dInput->UpdateDevices();
+	if(m_dInput != nullptr)
+	{
+		m_dInput->UpdateDevices();
+	}
+	else
+	{
+		Debug::Log("Attempted to update direct input devices but direct input was null!");
+	}
+	
 }
 

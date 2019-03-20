@@ -2,6 +2,12 @@
 #include "kxDebug.h"
 #include "directInput.h"
 
+DirectInputDevice::DirectInputDevice() :
+m_input(nullptr),
+m_device(nullptr)
+{
+}
+
 DirectInputDevice::DirectInputDevice(IDirectInput8W* a_input, HWND a_hWnd, const GUID& a_guid) :
 	m_input(a_input),
 	m_device(nullptr)

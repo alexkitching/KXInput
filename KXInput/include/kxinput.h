@@ -12,9 +12,7 @@ typedef KXManagerWin Manager;
 
 
 
-static Manager* _KXManager;
-
-
+static KXManagerWin* _KXManager;
 
 extern "C"
 {
@@ -54,37 +52,33 @@ extern "C"
 	// 	a_device->value = 10;
 	// }
 	// 
-	// typedef void(*logMSG_t)(const char* msg);
-	// static logMSG_t logMsg;
-	// 
-	// static void LogMessageTest()
-	// {
-	// 	logMsg("Test Message!");
-	// }
-	// 
-	// KXINPUT_API void SetLogCallback(logMSG_t logMsgCallback)
-	// {
-	// 	logMsg = logMsgCallback;
-	// 	LogMessageTest();
-	// }
 #pragma endregion 
 
 #pragma region Init/Cleanup
 
-	KXINPUT_API bool InitKXInput()
+inline
+KXINPUT_API bool InitKXInput(KXLogMessageClbk a_clbk)
 	{
-		_KXManager = new Manager(true);
+		Debug::SetLogCallback(a_clbk);
+		_KXManager = new KXManagerWin();
+
+		if(_KXManager == nullptr)
+		{
+			Debug::Log("KXManager Is null!");
+			return false;
+		}
+
 		_KXManager->Init();
 		return true;
 	}
 
 	KXINPUT_API void CleanupKXInput()
 	{
-	}
-
-	KXINPUT_API void SetLoggerClbk(KXLogMessageClbk a_clbk)
-	{
-		_KXLogger = a_clbk;
+		if(_KXManager != nullptr)
+		{
+			delete _KXManager;
+			_KXManager = nullptr;
+		}
 	}
 
 #pragma endregion 
@@ -94,7 +88,7 @@ extern "C"
 	KXINPUT_API void KXInputUpdate()
 	{
 		_KXManager->Update();
-		_KXLogger("KXUpdate Called!");
+		//Debug::Log("KXUpdate Called!");
 	}
 
 }

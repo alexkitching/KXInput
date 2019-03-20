@@ -2,12 +2,27 @@
 #include "kxDebug.h"
 #include "directInputPad.h"
 
+static DirectInput* instance = nullptr;
+
 bool DirectInput::CreateDirectInput(DirectInput * a_inputPtr)
 {
-	a_inputPtr = new DirectInput();
-
+	if(instance == nullptr)
+	{
+		a_inputPtr = instance = new DirectInput();
+	}
+	
 	return true;
 }
+
+void DirectInput::DestroyDirectInput()
+{
+	if(instance != nullptr)
+	{
+		delete instance;
+		instance = nullptr;
+	}
+}
+
 
 DirectInput::~DirectInput()
 {
@@ -44,26 +59,44 @@ m_Input(nullptr)
 	// Enum Devices
 	m_Input->EnumDevices(DI_CONTROLLER, DeviceEnumCallback,
 		static_cast<VOID*>(this), DIEDFL_ATTACHEDONLY);
-
 }
 
 BOOL DirectInput::DeviceEnumCallback(const DIDEVICEINSTANCE* a_instance,
 									 void* a_context)
 {
 	DirectInput* input = static_cast<DirectInput*>(a_context);
-
 	if(input)
 	{
-		if(a_instance->dwDevType == DI8DEVTYPE_GAMEPAD)
+
+		const BYTE type = GET_DIDEVICE_TYPE(a_instance->dwDevType);
+		const BYTE subType = GET_DIDEVICE_SUBTYPE(a_instance->dwDevType);
+
+		switch (type)
 		{
-			DirectInputPad* pad = new DirectInputPad(input->m_Input,
-													 input->m_hwnd,
-													 a_instance->guidInstance );
-			input->m_devices.emplace_back(pad);
+		case DI8DEVTYPE_MOUSE:
+			Debug::Log("Mouse Device Found on Enumeration");
+			break;
+		case DI8DEVTYPE_KEYBOARD:
+			Debug::Log("Keyboard Device Found on Enumeration");
+			break;
+		case DI8DEVTYPE_JOYSTICK:
+			Debug::Log("Joystick Device Found on Enumeration");
+			break;
+		case DI8DEVTYPE_GAMEPAD:
+			Debug::Log("Gamepad Device Found on Enumeration");
+			input->CreateGamePadDevice(a_instance->guidInstance);
+			break;
+		case DI8DEVTYPE_DRIVING:
+			Debug::Log("Driving Device Found on Enumeration");
+			break;
+
+		default:
+			Debug::Log("Unknown Device Skipped on Enumeration");
+			break;
 		}
 	}
 
-	return DI_ENUM_STOP;
+	return DI_ENUM_CONTINUE;	
 }
 
 BOOL DirectInput::EnumWindowsProc(HWND a_hwnd, LPARAM a_param)
@@ -81,4 +114,12 @@ BOOL DirectInput::EnumWindowsProc(HWND a_hwnd, LPARAM a_param)
 		return FALSE;
 	}
 	return TRUE;
+}
+
+void DirectInput::CreateGamePadDevice(GUID a_guid)
+{
+	DirectInputPad* pad = new DirectInputPad(m_Input,
+											 m_hwnd,
+											 a_guid);
+	m_devices.emplace_back(pad);
 }

@@ -5,14 +5,12 @@ using System.Runtime.InteropServices;
 
 public class KXInputManager : MonoBehaviour
 {
+    private delegate void KXLogger(string a_message);
+
     [DllImport("KXInput", EntryPoint = "InitKXInput")]
-    private static extern bool InitKXInput();
+    private static extern bool InitKXInput(KXLogger a_logger);
     [DllImport("KXInput", EntryPoint = "CleanupKXInput")]
     private static extern void CleanupKXInput();
-
-    private delegate void KXLogger(string a_message);
-    [DllImport("KXInput", EntryPoint = "SetLoggerClbk")]
-    private static extern void SetLoggerClbk(KXLogger a_logger);
 
     [DllImport("KXInput")]
     private static extern void KXInputUpdate();
@@ -21,16 +19,7 @@ public class KXInputManager : MonoBehaviour
 
     void Awake()
     {
-        _initialised = InitKXInput();
-
-        if (_initialised)
-        {
-            SetLoggerClbk(KXLog);
-        }
-        else
-        {
-            Debug.LogError("KXInput Initialisation Failed");
-        }
+        _initialised = InitKXInput(KXLog);
     }
 
     void KXLog(string a_message)
