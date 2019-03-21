@@ -8,6 +8,13 @@ DirectInputDevice(a_input, a_hWnd, a_guid),
 m_state({}),
 m_data({})
 {
+
+}
+
+void DirectInputPad::Init()
+{
+	DirectInputDevice::Init();
+
 	m_device->SetDataFormat(&c_dfDIJoystick2);
 
 	m_device->SetCooperativeLevel(a_hWnd, DI_CL_BACKGROUND | DI_CL_EXCLUSIVE);

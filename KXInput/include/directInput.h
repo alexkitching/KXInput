@@ -107,11 +107,14 @@ public:
 	void UpdateDevices();
 private:
 	DirectInput();
+	bool Init();
 	static BOOL CALLBACK DeviceEnumCallback(const DIDEVICEINSTANCE* a_instance,
 											VOID* a_context);
 	static BOOL CALLBACK EnumWindowsProc(_In_ HWND a_hwnd, _In_ LPARAM a_param);
 
 	void CreateGamePadDevice(GUID a_guid);
+
+	bool m_bInitialised;
 
 	// Handle to Window
 	HWND m_hwnd;

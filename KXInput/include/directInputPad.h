@@ -18,7 +18,8 @@ public:
 
 	DirectInputPad(IDirectInput8W* a_input, HWND a_hWnd, const GUID& a_guid);
 	~DirectInputPad() = default;
-
+	
+	void Init() override;
 	void Update() override;
 	PadData GetPadData() const {return m_data;}
 

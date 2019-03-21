@@ -6,12 +6,19 @@ static DirectInput* instance = nullptr;
 
 bool DirectInput::CreateDirectInput(DirectInput * a_inputPtr)
 {
-	if(instance == nullptr)
+	bool success = (instance == NULL);
+
+	if(success == false) // Create if Null
 	{
-		a_inputPtr = instance = new DirectInput();
+		instance = new DirectInput();
+
+		bool success = instance->Init();
 	}
-	
-	return true;
+
+	if(success == true)
+		a_inputPtr = instance;
+
+	return success;
 }
 
 void DirectInput::DestroyDirectInput()
@@ -42,16 +49,26 @@ void DirectInput::UpdateDevices()
 }
 
 DirectInput::DirectInput() :
+m_bInitialised(false),
 m_Input(nullptr)
 {
-	bool result = false;
+}
+
+bool DirectInput::Init()
+{
+	if (m_bInitialised)
+		return true;
+
 	const HINSTANCE instanceHandle = GetModuleHandle(nullptr);
 
 	// Create Input Handle
-	result = DirectInput8Create(instanceHandle, DIRECTINPUT_VERSION,
-								IID_IDirectInput8,
-								reinterpret_cast<void**>(&m_Input),
-								nullptr);
+	bool createSuccess = DirectInput8Create(instanceHandle, DIRECTINPUT_VERSION,
+						 IID_IDirectInput8,
+						 reinterpret_cast<void**>(&m_Input),
+						 nullptr);
+
+	if (!createSuccess)
+		return false;
 
 	// Get our Window Handle
 	EnumWindows(EnumWindowsProc, reinterpret_cast<LPARAM>(&m_hwnd));
@@ -59,6 +76,8 @@ m_Input(nullptr)
 	// Enum Devices
 	m_Input->EnumDevices(DI_CONTROLLER, DeviceEnumCallback,
 		static_cast<VOID*>(this), DIEDFL_ATTACHEDONLY);
+
+	return false;
 }
 
 BOOL DirectInput::DeviceEnumCallback(const DIDEVICEINSTANCE* a_instance,
